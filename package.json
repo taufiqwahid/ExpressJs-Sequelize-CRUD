@@ -1,0 +1,17 @@
+{
+  "name": "expressjs-sequelize-crud",
+  "version": "1.0.0",
+  "description": "nodejs expressjs sequelize ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "sequelize",
+    "mysql"
+  ],
+  "author": "Taufiq Wahid",
+  "license": "ISC"
+}
