@@ -1,4 +1,5 @@
 const express = require("express");
+
 const app = express();
 
 const db = require("./config/db");
@@ -67,5 +68,26 @@ app.delete("/crud/:id", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server Eror");
+  }
+});
+
+app.put("/crud/:id", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const id = req.params.id;
+    const updateUser = await User.update(
+      {
+        username,
+        email,
+        password,
+      },
+      { where: { id: id } },
+    );
+
+    await updateUser;
+    res.json(`Data dengan ID : ${id} Berhasil di Update`);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Error");
   }
 });
