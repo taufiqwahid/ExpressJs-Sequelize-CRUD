@@ -42,3 +42,16 @@ app.get("/crud", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+app.get("/crud/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const getUser = await User.findOne({
+      where: { id: id },
+    });
+    res.json(getUser);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Error");
+  }
+});
