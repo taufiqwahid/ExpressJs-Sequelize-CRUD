@@ -12,6 +12,7 @@ db.authenticate().then(() => {
   console.log("Berhasil terkoneksi dengan database");
 });
 
+app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Response nodejs Berhasil");
 });
@@ -26,6 +27,16 @@ app.post("/crud", async (req, res) => {
     });
     await newUser.save();
     res.json(newUser);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+app.get("/crud", async (req, res) => {
+  try {
+    const getAllUser = await User.findAll({});
+    res.json(getAllUser);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server Error");
