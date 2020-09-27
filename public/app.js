@@ -55,3 +55,17 @@ app.get("/crud/:id", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+app.delete("/crud/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleteUser = await User.destroy({
+      where: { id: id },
+    });
+    await deleteUser;
+    res.json(`data dari ID : ${id} Berhasil dihapus`);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server Eror");
+  }
+});
