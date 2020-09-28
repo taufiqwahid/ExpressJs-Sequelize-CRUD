@@ -6,6 +6,6 @@ const db = new sequelize("crudnodejs", "root", "", {
   dialect: "mysql",
 });
 
-db.sync({});
+db.sync({ force: true });
 
 module.exports = db;
