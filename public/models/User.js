@@ -1,7 +1,9 @@
+// initialitation ORM
 const { Sequelize } = require("sequelize");
-const sequelizr = require("sequelize");
+
 const db = require("../config/db");
 
+// create database with define name table user and type value
 const User = db.define(
   "user",
   {
@@ -10,6 +12,7 @@ const User = db.define(
     password: { type: Sequelize.STRING },
   },
   {
+    // fail add name table with S
     freezeTableName: true,
   },
 );

@@ -15,36 +15,24 @@ db.authenticate().then(() => {
   console.log("Berhasil terkoneksi dengan database");
 });
 
-//
+// control request url
 app.use(express.urlencoded({ extended: true }));
 
+// cek Request API
 app.use((req, res, next) => {
   console.log("Request Type : ", req.method);
   console.log("Request URL : ", req.originalUrl);
   next();
 });
 
+// cek route default
 app.get("/", (req, res) => {
   res.send("Response nodejs Berhasil");
 });
 
+// route modular endpoint sigle
 app
   .route("/crud")
-  .post(async (req, res) => {
-    try {
-      const { username, email, password } = req.body;
-      const newUser = new User({
-        username,
-        email,
-        password,
-      });
-      await newUser.save();
-      res.json(newUser);
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).send("Server Error");
-    }
-  })
   .get(async (req, res) => {
     try {
       const getAllUser = await User.findAll({});
@@ -53,8 +41,31 @@ app
       console.log(error.message);
       res.status(500).send("Server Error");
     }
+  })
+  .post(async (req, res) => {
+    try {
+      // Request POST and intialisation to body
+      const { username, email, password } = req.body;
+
+      // value object to User Method
+      const newUser = new User({
+        username: username,
+        email: email,
+        password: password,
+      });
+
+      //asyncronouse waiting data finish updating
+      await newUser.save();
+
+      // send a response JSON
+      res.json(newUser);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send("Server Error");
+    }
   });
 
+//endpoint API sigle modular with id
 app
   .route("/crud/:id")
   .get(async (req, res) => {
